@@ -14,6 +14,12 @@ function App() {
     setTaskList(task)
   }
 
+  const deleteTask = (id: number) => {
+    const newList = taskList.filter((item) => item.id !== id)
+
+    setTaskList(newList)
+  }
+
 
   return (
     <div className="App">
@@ -24,7 +30,7 @@ function App() {
           <TaskForm btnText='Criar Tarefa' taskList={taskList} addTaskList={addTask}/>
         <div>
           <h2>Suas tarefas:</h2>
-          <TaskList taskList={taskList}/>
+          <TaskList taskList={taskList} handleDelete={deleteTask}/>
         </div>
       </div>
      </main>
