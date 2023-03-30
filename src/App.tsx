@@ -24,7 +24,7 @@ function App() {
           <TaskForm btnText='Criar Tarefa' taskList={taskList} addTaskList={addTask}/>
         <div>
           <h2>Suas tarefas:</h2>
-          <TaskList />
+          <TaskList taskList={taskList}/>
         </div>
       </div>
      </main>

@@ -24,8 +24,9 @@
 }
 
 .form button:hover {
-  background-color: #ffffff;
-  border-color: #282c34;
+  background-color: darkblue;
+  border-color: #61dafb;
+  color: #ffffff;
 }
 
 .input_container {

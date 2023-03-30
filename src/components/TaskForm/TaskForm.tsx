@@ -9,7 +9,7 @@ type Props = {
 }
 
 const TaskForm = ({ btnText, taskList, addTaskList }: Props) => {
-  const [id, setId] = useState<number>(0)
+  // const [id, setId] = useState<number>(0)
   const [title, setTitle] = useState<string>('')
   const [difficulty, setDifficulty] = useState<number>(0)
 
