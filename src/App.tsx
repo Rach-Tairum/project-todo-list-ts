@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import TaskForm from './components/TaskForm/TaskForm';
@@ -15,12 +15,16 @@ function App() {
 
   const addTask = (task: ITask[]) => {
     setTaskList(task)
+    const listString = JSON.stringify(task)
+    localStorage.setItem('list', listString)
   }
 
   const deleteTask = (id: number) => {
-    const newList = taskList.filter((item) => item.id !== id)
+    const newList = taskList!.filter((item) => item.id !== id)
 
     setTaskList(newList)
+    const listString = JSON.stringify(newList)
+    localStorage.setItem('list', listString)
   }
 
   const handleEdit = (status: boolean) => {    
@@ -35,7 +39,7 @@ function App() {
 
   const updateTask = (id: number, title: string, difficulty: number) => {
     const updatedTask: ITask = {id, title, difficulty}
-    const updatedItems = taskList.map((task) => {
+    const updatedItems = taskList!.map((task) => {
       if (task.id === updatedTask.id) {
         return updatedTask
       }
@@ -43,9 +47,21 @@ function App() {
     })
 
     setTaskList(updatedItems)
+    const listString = JSON.stringify(updatedItems)
+    localStorage.setItem('list', listString)
     handleEdit(false)
   }
 
+  useEffect(() => {
+    const listStoraged = localStorage.getItem('list')
+
+    if (listStoraged) {
+      const loadList = JSON.parse(listStoraged)
+      setTaskList(loadList)
+    } else {
+      setTaskList([])
+    }
+  }, [])
 
   return (
     <div className="App">
@@ -53,7 +69,7 @@ function App() {
         children={
             <TaskForm 
               btnText='Editar tarefa' 
-              taskList={taskList} 
+              taskList={taskList!} 
               task={taskToUpdate} 
               handleUpdate={updateTask} 
             />
@@ -67,12 +83,12 @@ function App() {
             <h2>O que você vai fazer?</h2>
             <TaskForm 
               btnText='Criar Tarefa' 
-              taskList={taskList} 
+              taskList={taskList!} 
               addTaskList={addTask}
             />
           <div>
             <h2>Suas tarefas:</h2>
-            <TaskList taskList={taskList} handleDelete={deleteTask} openModal={editTask} />
+            <TaskList taskList={taskList!} handleDelete={deleteTask} openModal={editTask} />
           </div>
         </div>
       </main>
