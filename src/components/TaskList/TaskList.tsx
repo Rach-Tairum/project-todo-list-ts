@@ -5,9 +5,10 @@ import styles from './TaskList.module.css';
 type Props = {
   taskList: ITask[];
   handleDelete: (id: number) => void
+  openModal: (task: ITask) => void
 }
 
-const TaskList = ({ taskList, handleDelete }: Props) => {
+const TaskList = ({ taskList, handleDelete, openModal }: Props) => {
   return (
     <>
       {taskList.length > 0 ? 
@@ -18,7 +19,7 @@ const TaskList = ({ taskList, handleDelete }: Props) => {
             <p>Dificuldade: {item.difficulty}</p>
           </div>
           <div className={styles.actions}>
-            <i className='bi bi-pencil'></i>
+            <i className='bi bi-pencil' onClick={() => openModal(item)}></i>
             <i className='bi bi-trash' onClick={() => handleDelete(item.id)}></i>
           </div>
         </div>
